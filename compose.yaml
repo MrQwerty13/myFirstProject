@@ -1,6 +1,6 @@
 services:
   testapp:
-    image: ergrassa/testapp:latest
+    image: qwerty13/testapp:latest
     environment:
       - MULTIPLIER=4
       - VIRTUAL_HOST=testapp.webapp.zerog.cc
