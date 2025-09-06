@@ -1,6 +1,13 @@
 services:
   testapp:
-    image: testapp:v0.2
+    image: ergrassa/testapp:latest
     environment:
-      - MIN_VALUE=1
-      - MAX_VALUE=10
+      - MULTIPLIER=4
+      - VIRTUAL_HOST=testapp.webapp.zerog.cc
+      - LETSENCRYPT_HOST=testapp.webapp.zerog.cc
+      - LETSENCRYPT_EMAIL=testapp@zerog.cc
+    networks:
+      - proxy
+networks:
+  proxy:
+    external: true
