@@ -1,0 +1,2 @@
+if [ "$UPDATE_LITE" ]; then
+  _update_nanorc_lite else _update_nanorc fi
