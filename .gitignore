@@ -1,0 +1,72 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Виртуальные окружения
+.venv/
+venv/
+env/
+ENV/
+
+# Кэши и артефакты
+*.log
+*.pot
+*.pyc
+*.pyo
+*.pyd
+*.sqlite3
+*.db
+db.sqlite3
+instance/
+*.egg-info/
+.eggs/
+*.egg
+dist/
+build/
+wheels/
+pip-wheel-metadata/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.cache/
+.dmypy.json
+.pyre/
+
+# Jupyter
+.ipynb_checkpoints
+
+# --- Docker ---
+.docker
+docker-compose.override.yml
+docker-compose.local.yml
+docker-compose.*.override.yml
+compose.*.override.yaml
+compose.*.override.yaml
+
+# Локальные переменные окружения
+.env
+.env.*.local
+.env.local
+
+# Временные/volume-данные
+data/
+tmp/
+*.sock
+
+# Volumes для популярных сервисов
+pgdata/
+mysql_data/
+redis_data/
+mongo_data/
+kafka_data/
+rabbitmq_data/
+
+# --- IDE / редакторы ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak

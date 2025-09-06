@@ -1,0 +1,6 @@
+services:
+  testapp:
+    image: testapp:v0.2
+    environment:
+      - MIN_VALUE=1
+      - MAX_VALUE=10
