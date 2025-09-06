@@ -1,5 +1,6 @@
 import os
 import random
+import string
 from fastapi import FastAPI, Query
 
 app = FastAPI()
@@ -21,11 +22,26 @@ Returns:
 """
 @app.get('/')
 def give_a_num(min: int = Query(1, ge=1), max: int = Query(100, ge=1)):
-  rand = random.randint(int(min), int(max)) * int(mult)
-  return {
-    'min': min,
-    'max': max,
-    'mult': mult,
-    'rand': rand,
-    'message': f"Here is a random number {rand} between {min} and {max}, multiplied by {mult}"
-  }
+    """
+    This function can swap max_int and min_int if max_int < min_int
+    """
+    if max > min:
+        rand = random.randint(int(min), int(max)) * int(mult)
+        return {
+            'min': min,
+            'max': max,
+            'mult': mult,
+            'rand': rand,
+            'message': f"Here is a random number {rand} between {min} and {max}, multiplied by {mult}"
+        }
+    elif max < min:
+        rand = random.randint(int(max), int(min)) * int(mult)
+        return {
+            'min': max,
+            'max': min,
+            'mult': mult,
+            'rand': rand,
+            'message': f"Here is a random number {rand} between {min} and {max}, multiplied by {mult}"
+        }
+    else:
+        return f"I'm sorry but it cannot be strated due to reason the min_int == max_int ;)"
