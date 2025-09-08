@@ -31,3 +31,36 @@ jobs:
           tags: mrqwerty13/testapp:latest
           context: .
           dockerfile: Dockerfile
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - 
+        name: Checkout
+        uses: actions/checkout@v5
+      - name: Write env file
+        run: |
+          mkdir -p env
+          echo "${{ secrets.MONGO_ENV }}" > env/mongo.env
+          echo "${{ secrets.CLIENT_ENV }}" > env/client.env
+      - name: Copy files via SSH
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: 22
+          source: "env/mongo.env,env/client.env,compose.yaml"
+          target: "~/deploy/testapp"
+      - name: Multiple commands
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.KEY }}
+          port: 22
+          script: |
+            cd ~/deploy/testapp
+            docker compose pull
+            docker compose up -d --force-recreate testapp

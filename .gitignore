@@ -63,6 +63,7 @@ redis_data/
 mongo_data/
 kafka_data/
 rabbitmq_data/
+db_data/
 
 # --- IDE / редакторы ---
 .vscode/
@@ -70,3 +71,7 @@ rabbitmq_data/
 *.swp
 *.swo
 *.bak
+.pico.save
+
+# mongo env
+env/

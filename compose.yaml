@@ -1,13 +1,31 @@
 services:
-  testapp:
-    image: qwerty13/testapp:latest
+  db:
+    image: mongo:8
+    volumes:
+      - ./db_data:/data/db
+    networks:
+      - testapp
+    env_file:
+      - ./env/mongo.env
     environment:
+      - MONGO_INITDB_DATABASE=testapp
+  testapp:
+    env_file:
+      - ./env/client.env
+    image: mrqwerty13/testapp:latest
+    environment:
+      - MONGO_HOST=db
+      - MONGO_PORT=27017
       - MULTIPLIER=4
       - VIRTUAL_HOST=testapp.webapp.zerog.cc
       - LETSENCRYPT_HOST=testapp.webapp.zerog.cc
       - LETSENCRYPT_EMAIL=testapp@zerog.cc
     networks:
+      - testapp
       - proxy
 networks:
+  testapp:
+    driver: bridge
+    name: testapp
   proxy:
     external: true
