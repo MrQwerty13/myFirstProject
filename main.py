@@ -1,10 +1,18 @@
+# section for importing some very important tools
 import os
 import random
 from fastapi import FastAPI, Query
+from pymongo import MongoClient
 
 app = FastAPI()
 mult = os.environ.get('MULTIPLIER', 1)
-
+mongo_user = os.environ.get('MONGO_USER', 'root')
+mongo_pass = os.environ.get('MONGO_PASS', 'password')
+mongo_host = os.environ.get('MONGO_HOST', 'localhost')
+mongo_port = os.environ.get('MONGO_PORT', '27017')
+mongo_uri = f"mongodb://{mongo_user}:{mongo_pass}@{mongo_host}:{mongo_port}/testapp"
+print(mongo_uri)
+client = MongoClient(mongo_uri)
 
 """
 Generates and returns a random number within a specified range.
@@ -44,3 +52,20 @@ def give_a_num(min: int = Query(1, ge=1), max: int = Query(100, ge=1)):
         }
     else:
         return f"I'm sorry but it cannot be strated due to reason the min_int == max_int ;)"
+
+@app.post('/addrecord')
+def add_record(record: dict):
+    db = client.testapp
+    collection = db.records
+    collection.insert_one(record)
+    return {'message': f"Record {record} added successfully"}
+
+@app.get('/getrecords')
+def get_records():
+    db = client.testapp
+    collection = db.records
+    records = collection.find()
+    return {
+        'records': list(records),
+        'message': 'Here are all the records in the database'
+    }
