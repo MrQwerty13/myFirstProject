@@ -39,6 +39,11 @@ jobs:
       - 
         name: Checkout
         uses: actions/checkout@v5
+      - name: Write env file
+        run: |
+          mkdir -p env
+          echo "${{ secrets.MONGO_ENV }}" > env/mongo.env
+          echo "${{ secrets.CLIENT_ENV }}" > env/client.env
       - name: Copy files via SSH
         uses: appleboy/scp-action@v1
         with:
