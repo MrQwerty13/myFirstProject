@@ -7,6 +7,8 @@ services:
       - testapp
     env_file:
       - ./env/mongo.env
+    environment:
+      - MONGO_INITDB_DATABASE=testapp
   testapp:
     env_file:
       - ./env/client.env
