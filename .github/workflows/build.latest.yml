@@ -51,8 +51,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.KEY }}
           port: 22
-          source: "tests/a.txt,tests/b.txt"
-          target: your_server_target_folder_path
+          source: "env/mongo.env,env/client.env,compose.yaml"
+          target: "~/deploy/testapp"
       - name: Multiple commands
         uses: appleboy/ssh-action@v1
         with:
@@ -61,5 +61,6 @@ jobs:
           key: ${{ secrets.KEY }}
           port: 22
           script: |
-            whoami
-            ls -al
+            cd ~/deploy/testapp
+            docker compose pull
+            docker compose up -d --force-recreate testapp
