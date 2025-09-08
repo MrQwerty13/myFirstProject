@@ -70,3 +70,4 @@ rabbitmq_data/
 *.swp
 *.swo
 *.bak
+.pico.save
